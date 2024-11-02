@@ -1,7 +1,7 @@
 ---
 name: FEATURE REQUEST
 about: Feature or enhancement to current capabilities request
-title: "[REQUEST]: "
+title: "[REQUEST] "
 labels: ["feature"]
 assignees:
 ---
