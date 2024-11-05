@@ -1,6 +1,9 @@
 # Utilities for the Enron Project
 import logging
 import os
+import time
+
+from utils.db_manager import DatabaseManager
 
 
 class LoggerConfig:
@@ -23,7 +26,7 @@ class LoggerConfig:
             Returns the configured logger instance.
     """
 
-    def __init__(self, log_dir="./", log_level=logging.INFO, logger_name="logger"):
+    def __init__(self, log_dir="./logs", log_level=logging.INFO, logger_name="logger"):
         """
         Initialize the LoggerConfig with directory, log level, and logger name.
 
@@ -38,6 +41,8 @@ class LoggerConfig:
         self.logger_name = logger_name
         # Create a logger instance with the specified name
         self.logger = logging.getLogger(self.logger_name)
+        # Ensure the log directory exists
+        DatabaseManager.ensure_directory_exists(self.log_dir, self.logger)
         # Configure the logger
         self.configure_logger()
 
@@ -63,8 +68,11 @@ class LoggerConfig:
         if not os.path.exists(self.log_dir):
             os.makedirs(self.log_dir)
 
-        # Define the log file path
-        log_file = os.path.join(self.log_dir, f"{self.logger_name}.log")
+        # Define the log file path all lower case
+        log_file = os.path.join(
+            self.log_dir,
+            f"{self.logger_name.lower()}_{time.strftime('%Y%m%d_%H%M%S')}.log",
+        )
 
         # Configure the logging settings
         logging.basicConfig(
