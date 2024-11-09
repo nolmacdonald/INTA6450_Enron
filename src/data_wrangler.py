@@ -116,10 +116,10 @@ class DataWrangler:
 
 
 if __name__ == "__main__":
-    json_dir = os.path.join(os.path.dirname(__file__), "../data")
+    json_dir = os.path.join(os.path.dirname(__file__), "../data/emails")
     data_wrangler = DataWrangler(json_dir)
 
     emails_df = data_wrangler.parse_emails(
-        save_csv_path="emails_test.csv", save_db_path="emails_test.db"
+        save_csv_path="data/emails.csv", save_db_path="data/emails.db"
     )
     print(emails_df.head())

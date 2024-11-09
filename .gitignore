@@ -166,6 +166,12 @@ cython_debug/
 
 # Data for Enron Emails 
 data/
+notebooks/*.csv
+*.csv
+*.db
 
 # Logs from running scripts
 logs/
+
+# IDE
+.vscode/
