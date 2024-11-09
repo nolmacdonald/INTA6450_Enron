@@ -1,0 +1,43 @@
+---
+title: "INTA 6450: Enron Project"
+output: pdf_document
+bibliography: references/references.bib
+csl: references/ieee.csl
+urlcolor: blue
+# date: "2024-10-02"
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = FALSE)
+library(reticulate)
+# Use the enron conda environment for Python
+use_condaenv("enron", conda = "/Users/nmacdonald/mambaforge3/bin/conda")
+```
+
+# Natural Language Processing
+
+Natural Language Processing (NLP) definition 
+
+## Topic Modeling
+
+Extracting various concepts or topics from a large corpus such as the Enron emails can be performed using topic modeling.
+
+Topic modeling extracts features to generate clusters or groups of terms that are distinguishable from one another.
+Clusters of words form topics, which can be used to understand the main themes of a corpus.
+
+- Latent semantic indexing (LSI)
+- Latent Dirichlet allocation (LDA)
+- Non-negative matrix factorization
+
+First 2 methods are popular and have been around a long time.
+Non-negative matrix factorization is a newer method that is extremely effective and provides good results.
+
+[Text Analytics with Python Ch. 5 LDA](https://learning.oreilly.com/library/view/text-analytics-with/9781484223871/A427287_1_En_5_Chapter.html)
+
+- [ ] Normalize corpus - Tokenize
+
+AI Wrote This!
+Latent Dirichlet Allocation (LDA) is a technique for generative probabilistic modeling of text corpora. 
+It is a three-level hierarchical Bayesian model, in which each item of a collection is modeled as a finite mixture over an underlying set of topics. 
+Each topic is, in turn, modeled as an infinite mixture over an underlying set of topic probabilities. 
+In the context of text modeling, the topic probabilities provide an explicit representation of a document.
