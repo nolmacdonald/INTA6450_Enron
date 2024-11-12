@@ -41,3 +41,4 @@ Latent Dirichlet Allocation (LDA) is a technique for generative probabilistic mo
 It is a three-level hierarchical Bayesian model, in which each item of a collection is modeled as a finite mixture over an underlying set of topics. 
 Each topic is, in turn, modeled as an infinite mixture over an underlying set of topic probabilities. 
 In the context of text modeling, the topic probabilities provide an explicit representation of a document.
+
