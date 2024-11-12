@@ -3,10 +3,12 @@ channels:
   - conda-forge
 dependencies:
   - python
+  - beautifulsoup4
   - gensim
   - ipython
   - matplotlib
   - nb_conda_kernels
+  - networkx
   - nltk
   - notebook
   - numpy
