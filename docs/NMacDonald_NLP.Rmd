@@ -18,7 +18,7 @@ use_condaenv("enron", conda = "/Users/nmacdonald/mambaforge3/bin/conda")
 
 Natural Language Processing (NLP) definition 
 
-## Topic Modeling
+# Topic Modeling
 
 Extracting various concepts or topics from a large corpus such as the Enron emails can be performed using topic modeling.
 
@@ -34,11 +34,58 @@ Non-negative matrix factorization is a newer method that is extremely effective 
 
 [Text Analytics with Python Ch. 5 LDA](https://learning.oreilly.com/library/view/text-analytics-with/9781484223871/A427287_1_En_5_Chapter.html)
 
-- [ ] Normalize corpus - Tokenize
 
-AI Wrote This!
-Latent Dirichlet Allocation (LDA) is a technique for generative probabilistic modeling of text corpora. 
-It is a three-level hierarchical Bayesian model, in which each item of a collection is modeled as a finite mixture over an underlying set of topics. 
-Each topic is, in turn, modeled as an infinite mixture over an underlying set of topic probabilities. 
-In the context of text modeling, the topic probabilities provide an explicit representation of a document.
+
+
+## Background
+
+LDA is a three-level generative model for collections of discrete data such as text corpora.
+The basic idea is that documents are represented as random mixtures over latent topics, 
+where each topic is characterized by a distribution over words.
+Each email in the database is a document, and the corpus is a collection of documents.
+A document or email is a sequence of $N$ words.
+LDA assumes that each email (document) exhibits $K$ topics.
+It is important to note that the only observed variables are the words of the documents while 
+topic related data are latent variables [@hoffman2013stochastic].
+
+A graphical representation of the LDA model 
+is shown in Figure 1 [@hoffman2013stochastic].
+The model considers observations are the words, organized in the documents.
+The $n$th word in the $d$th document is $w_{d,n}$.
+Each word is an element in a fixed vocabulary of $V$ terms.
+A topic $\beta_k$ is a distribution over the vocabulary.
+In LDA there are $K$ topics, and each topic $k$ is a word distribution over the $V$ terms.
+Each doument in the database is associated with a vector of topic proportions $\theta_d$.
+Topic proportions are a distribution over topics, drawn from a Dirichlet distribution.
+Each word in each document is assumed to have been drawn from a single topic.
+The topic assignment for the $n$th word in the $d$th document is $z_{d,n}$.
+
+```{r lda-graphical-model, echo=FALSE, out.width="70%", fig.cap="Graphical Model of LDA", fig.align = "center"}
+knitr::include_graphics("figures-references/graphical_model_LDA.png")
+```
+
+## Approach
+
+### Load and Parse Data 
+
+The Enron email dataset is loaded and parsed to extract the text content of the emails.
+
+### Pre-Process Data
+
+The text content of the emails is pre-processed to remove stop words, punctuation, and other non-essential information.
+
+### Develop Topic Model
+
+To develop an LDA model with Python, the scikit-learn library can be utilized [@scikit-learn].
+The scikit-learn package includes unsupervised learning with matrix decomposition algorithms.
+Under this umbrella is the `LatentDirichletAllocation` class, which is used to fit the LDA model to the Enron email dataset.
+LDA modeling can be performed by using the application programming interface (API) provided by scikit-learn [@scikit-learn-API]
+to access the `sklearn.decomposition` module that includes the `LatentDirichletAllocation` class.
+
+`LatentDirichletAllocation` implements the online variational Bayes algorithm and is used with the batch update method. 
+The batch method updates variational variables after each full pass through the data and is implemented by 
+`learning_method='batch'` [@scikit-learn-lda].
+
+
+
 
