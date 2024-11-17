@@ -26,7 +26,7 @@ class LoggerConfig:
             Returns the configured logger instance.
     """
 
-    def __init__(self, log_dir="./logs", log_level=logging.INFO, logger_name="logger"):
+    def __init__(self, log_level=logging.INFO, logger_name="logger"):
         """
         Initialize the LoggerConfig with directory, log level, and logger name.
 
@@ -35,8 +35,13 @@ class LoggerConfig:
             log_level (int): The logging level (e.g., logging.INFO, logging.DEBUG). Default is logging.INFO.
             logger_name (str): The name of the logger. Default is "logger".
         """
+        # Get the absolute path of the current directory (e.g., src/utils)
+        self.current_dir = os.path.abspath(os.path.dirname(__file__))
+        # Navigate up two levels to reach the root directory
+        self.root_dir = os.path.abspath(os.path.join(self.current_dir, "../../"))
+
         # Initialize the LoggerConfig with directory, log level, and logger name
-        self.log_dir = log_dir
+        self.log_dir = f"{self.root_dir}/logs"
         self.log_level = log_level
         self.logger_name = logger_name
         # Create a logger instance with the specified name

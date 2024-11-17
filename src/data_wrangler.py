@@ -143,12 +143,19 @@ class DataWrangler:
 
 
 if __name__ == "__main__":
-    json_dir = os.path.join(os.path.dirname(__file__), "../data/emails")
-    data_wrangler = DataWrangler(json_dir)
+    # Get the absolute path of the current directory (e.g., src/utils)
+    current_dir = os.path.abspath(os.path.dirname(__file__))
+    # Navigate up one level to reach the root directory
+    root_dir = os.path.abspath(os.path.join(current_dir, "../"))
 
-    save = f'{os.path.join(os.getcwd(), ".")}'
+    path_emails_raw = f"{root_dir}/data/emails/"
+    data_wrangler = DataWrangler(path_emails_raw)
+
+    # Parse the emails by reading all json files and recording to DataFrame
+    # Save to a CSV file: save_csv_path=f"{root_dir}/path/to/file.csv"
+    # Save to a SQLite3 database: save_db_path=f"{root_dir}/path/to/database.db"
     emails_df = data_wrangler.parse_emails(
-        save_csv_path=f"{save}/emails.csv",  # Save the DataFrame to a CSV file
-        save_db_path=f"{save}/emails.db",  # Save the DataFrame to SQLite database
+        # os.path.dirname(os.getcwd()) is root dir - INTA6450_Enron/ folder
+        save_db_path=f"{root_dir}/data/emails.db",
     )
     print(emails_df.head())

@@ -176,3 +176,4 @@ logs/
 
 # IDE
 .vscode/
+.Rproj.user

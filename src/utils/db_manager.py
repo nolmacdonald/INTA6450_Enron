@@ -5,9 +5,9 @@ import pandas as pd
 
 
 class DatabaseManager:
-    def __init__(self, file_path, logger=None):
-        self.file_path = file_path
-        self.conn = sqlite3.connect(f"{self.file_path}")
+    def __init__(self, db_path, logger=None):
+        self.db_path = db_path
+        self.conn = sqlite3.connect(f"{self.db_path}")
         self.cursor = self.conn.cursor()
         self.logger = logger
 
@@ -27,7 +27,7 @@ class DatabaseManager:
         column_names = [description[0] for description in self.cursor.description]
         return rows, column_names
 
-    def save_to_csv(self, df):
+    def save_to_csv(self, df, save_path):
         """
         Save the DataFrame to a CSV file.
 
@@ -35,13 +35,13 @@ class DatabaseManager:
             df (pd.DataFrame): The DataFrame to save.
         """
         save_start_time = time.time()
-        df.to_csv(self.file_path, index=False)
+        df.to_csv(save_path, index=False)
         save_end_time = time.time()
         if self.logger:
             self.logger.info(
                 f"Emails saved to CSV in {save_end_time - save_start_time:.2f} seconds."
             )
-            self.logger.info(f"Parsed emails saved at {self.file_path}")
+            self.logger.info(f"Parsed emails saved at {save_path}")
 
     def save_to_db(self, df, table_name):
         """
@@ -52,7 +52,7 @@ class DatabaseManager:
             table_name (str): The name of the table to save the data to.
         """
         save_start_time = time.time()
-        conn = sqlite3.connect(f"{self.file_path}")
+        conn = sqlite3.connect(f"{self.db_path}")
 
         # Convert list columns to strings before saving to SQLite
         for column in df.columns:
@@ -65,7 +65,7 @@ class DatabaseManager:
             self.logger.info(
                 f"Emails saved to SQLite database in {save_end_time - save_start_time:.2f} seconds."
             )
-            self.logger.info(f"Parsed emails saved at {self.file_path}")
+            self.logger.info(f"Parsed emails saved at {self.db_path}")
 
     @staticmethod
     def ensure_directory_exists(directory, logger=None):
@@ -92,7 +92,19 @@ class DatabaseManager:
 
 # Example usage
 if __name__ == "__main__":
-    db_manager = DatabaseManager("emails_test.db")
-    rows, column_names = db_manager.load_db("emails")
-    print("Column names:", column_names)
+    # Get the absolute path of the current directory (e.g., src/utils)
+    current_dir = os.path.abspath(os.path.dirname(__file__))
+
+    # Navigate up two levels to reach the root directory
+    # from src/utils root dir is down two levels to INTA6450_Enron/
+    root_dir = os.path.abspath(os.path.join(current_dir, "../../"))
+
+    # Initialize the DatabaseManager with the path to the SQLite database
+    db_manager = DatabaseManager(db_path=f"{root_dir}/data/emails.db")
+
+    # Load data from the "emails" table in the SQLite database
+    rows, column_names = db_manager.load_db(table_name="emails")
+    print(f"Column names: {column_names}")
+
+    # Close the database connection
     db_manager.close_db()
