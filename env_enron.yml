@@ -15,6 +15,6 @@ dependencies:
   - pandas
   - pip
   - scikit-learn
-  - scipy
+  - scipy<=1.10
   - seaborn
   - sqlite
