@@ -61,20 +61,75 @@ Each word in each document is assumed to have been drawn from a single topic.
 The topic assignment for the $n$th word in the $d$th document is $z_{d,n}$.
 
 ```{r lda-graphical-model, echo=FALSE, out.width="70%", fig.cap="Graphical Model of LDA", fig.align = "center"}
-knitr::include_graphics("figures-references/graphical_model_LDA.png")
+knitr::include_graphics("assets/figures-references/graphical_model_LDA.png")
 ```
 
-## Approach
-
-### Load and Parse Data 
+## Data Wrangling
 
 The Enron email dataset is loaded and parsed to extract the text content of the emails.
 
-### Pre-Process Data
+- Data Wrangling
+    - Downloading and saving to database
+    - Format the date
+
+## Pre-Processing
 
 The text content of the emails is pre-processed to remove stop words, punctuation, and other non-essential information.
 
-### Develop Topic Model
+### Text Extraction
+
+The text content of the emails is extracted from the database and stored in a pandas DataFrame.
+This issue with the text, or body of each email, is the amount of insignificant data that is included.
+The insignificant data adds noise to the dataset and can be removed to improve the quality of the data.
+Text extraction is performed to remove the email headers, footers, and other non-essential information.
+
+HTML tags are removed from the email text using the `BeautifulSoup` library.
+The `BeautifulSoup` library is a Python package that is used to parse HTML and XML documents.
+The `get_text()` method is used to extract the text content from the email body.
+
+In addition, email addresses and URLs are removed from the email text using regular expressions.
+Email addresses are stored in additional columns of the dataframe, thus they will not neglect the email text
+when removed from the body of the email, and they are still available for analysis if needed.
+URLs are also removed from the email text using regular expressions in an effort to allow the topic model
+to focus on the content of the emails.
+
+### Normalization
+
+Text normalization is performed to convert the text to lowercase and remove punctuation.
+The `str.lower()` method is used to convert the text to lowercase.
+Non-alphabetic characters are filtered out of the text using the `re.sub()` method with
+a regular expression pattern that matches non-alphabetic characters, `[^a-z\s]`.
+
+### Tokenization
+
+Tokenization is the process of splitting text into smaller units called tokens, 
+which are often words but can also be phrases or even characters depending on the context. 
+In this case, the text is being split into individual words, where
+each word in the sentence becomes a separate token.
+Tokenization is important as you cannot assume all text is useful to extract
+features from, and including the entirety of the email bodies will add more 
+noise to the data set [@beysolowNLP2018].
+
+Using the function `word_tokenize` from the Natural Language Toolkit (NLTK) library,
+text or strings are split into a list of words known as tokens.
+Using NLTK allows for less pre-processing, as it is capable of recognizing punctuation and contractions.
+The tokenized text from each email body is stored in a pandas DataFrame column labeled `"processed_text"`.
+The tokenized text is then used for further pre-processing steps.
+
+### Removing Stop Words
+
+Utilizing the tokenized text, stop words are removed from the email content.
+Stop words are common words that do not add value to the analysis, such as "the", "and", or "is".
+The `stopwords` module from the NLTK library is used to remove stop words from the tokenized text,
+considering the English dictionary.
+
+### Stemming
+
+Stemming is performed with the `PorterStemmer` class from the NLTK library.
+Stemming is the process of reducing words to their root or base form.
+The `PorterStemmer` class is used to stem the tokenized text, which reduces the number of unique words in the corpus.
+
+## Topic Modeling
 
 To develop an LDA model with Python, the scikit-learn library can be utilized [@scikit-learn].
 The scikit-learn package includes unsupervised learning with matrix decomposition algorithms.
@@ -86,6 +141,24 @@ to access the `sklearn.decomposition` module that includes the `LatentDirichletA
 The batch method updates variational variables after each full pass through the data and is implemented by 
 `learning_method='batch'` [@scikit-learn-lda].
 
+- Topic Modeling
+    - Final preparation
+    - Top topics, top words for each topic
+    - Wordcloud plot
 
+To develop a topic model, the data must be prepared as previously discussed for pre-processing.
+The `LatentDirichletAllocation` class is then used to fit the LDA model to the Enron email dataset.
+The text from each email body is employed with the topic model that has been pre-processed using 
+text extraction, normalization, tokenization, stop word removal, and stemming.
+The final step to prepare the data for the LDA model is to convert the tokenized text to a document-term matrix.
+The `CountVectorizer` class from the scikit-learn library is used to convert the tokenized text to a document-term matrix.
+The document-term matrix is a matrix that describes the frequency of terms that occur in a collection of documents.
+An LDA model is then fit to the document-term matrix to generate topics from the Enron email dataset, where
+the number of topics is specified as a parameter (e.g., `n_components=10`).
 
+With results from the LDA model, the top topics and top words for each topic can be extracted.
+A function is developed to extract the top topics and top words for each topic from the LDA model.
+The function sorts the topics by the highest probability and extracts the top words for each topic.
+The top topics and top words for each topic are then displayed in a table format.
 
+## Dynamic Topic Modeling
