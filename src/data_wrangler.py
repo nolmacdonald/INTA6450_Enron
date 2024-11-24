@@ -10,7 +10,9 @@ class DataWrangler:
     def __init__(self, json_dir):
         self.json_dir = json_dir
         self.logger = LoggerConfig(logger_name="DataWrangler").get_logger()
-        self.data_saver = DatabaseManager(self.logger)
+        current_dir = os.path.abspath(os.path.dirname(__file__))
+        db_path = os.path.abspath(os.path.join(current_dir, "../data/emails.db"))
+        self.data_saver = DatabaseManager(db_path,self.logger)
 
     def parse_emails(self, save_csv_path=None, save_db_path=None, table_name="emails"):
         """
@@ -129,13 +131,13 @@ class DataWrangler:
 
         # Save the DataFrame to a CSV file if requested
         if save_csv_path:
-            manager = DatabaseManager(file_path=save_csv_path)
+            manager = DatabaseManager(db_path=save_csv_path)
             manager.save_to_csv(emails_df)
             self.logger.info(f"Parsed dataset saved to CSV file: {save_csv_path}")
 
         # Save the DataFrame to a SQLite database if requested
         if save_db_path:
-            manager = DatabaseManager(file_path=save_db_path)
+            manager = DatabaseManager(db_path=save_db_path)
             manager.save_to_db(emails_df, table_name)
             self.logger.info(f"Parsed dataset saved to SQLite database: {save_db_path}")
 
