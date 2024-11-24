@@ -165,4 +165,15 @@ cython_debug/
 .DS_Store
 
 # Data for Enron Emails 
-data/
+data/emails/*.json
+*.csv
+*.db
+
+notebooks/data/
+
+# Logs from running scripts
+logs/
+
+# IDE
+.vscode/
+.Rproj.user
