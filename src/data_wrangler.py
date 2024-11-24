@@ -129,13 +129,13 @@ class DataWrangler:
 
         # Save the DataFrame to a CSV file if requested
         if save_csv_path:
-            manager = DatabaseManager(file_path=save_csv_path)
+            manager = DatabaseManager(db_path=save_csv_path)
             manager.save_to_csv(emails_df)
             self.logger.info(f"Parsed dataset saved to CSV file: {save_csv_path}")
 
         # Save the DataFrame to a SQLite database if requested
         if save_db_path:
-            manager = DatabaseManager(file_path=save_db_path)
+            manager = DatabaseManager(db_path=save_db_path)
             manager.save_to_db(emails_df, table_name)
             self.logger.info(f"Parsed dataset saved to SQLite database: {save_db_path}")
 
