@@ -2,6 +2,7 @@
 import logging
 import os
 import time
+import logging.handlers
 
 from utils.db_manager import DatabaseManager
 
@@ -79,13 +80,28 @@ class LoggerConfig:
             f"{self.logger_name.lower()}_{time.strftime('%Y%m%d_%H%M%S')}.log",
         )
 
-        # Configure the logging settings
+        # Create a memory handler with a buffer size of 1000 log records
+        memory_handler = logging.handlers.MemoryHandler(
+            capacity=1000,
+            flushLevel=logging.ERROR,
+            target=logging.FileHandler(log_file),
+        )
+
+        # Configure the logging settings with the memory handler
         logging.basicConfig(
             level=self.log_level,
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
-            handlers=[logging.FileHandler(log_file), logging.StreamHandler()],
+            handlers=[memory_handler, logging.StreamHandler()],
         )
+
+    def flush_memory_handler(self):
+        """
+        Flush the memory handler to the file handler if there are log messages.
+        """
+        for handler in self.logger.handlers:
+            if isinstance(handler, logging.handlers.MemoryHandler):
+                handler.flush()
 
     def get_logger(self):
         """
@@ -94,5 +110,7 @@ class LoggerConfig:
         Returns:
             logging.Logger: The configured logger instance.
         """
+        # Flush the memory handler before returning the logger
+        self.flush_memory_handler()
         # Return the configured logger instance
         return self.logger

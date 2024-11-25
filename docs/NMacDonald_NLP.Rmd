@@ -161,4 +161,36 @@ A function is developed to extract the top topics and top words for each topic f
 The function sorts the topics by the highest probability and extracts the top words for each topic.
 The top topics and top words for each topic are then displayed in a table format.
 
+## Gensim Topic Model
+
+The `gensim` package is utilized in Python to develop a topic model with
+LDA from a training corpus and inference on new, unseen documents.
+Within `gensim`, the module `models.ldamodel`, optimized LDA in Python is performed by fitting the
+topic model to the preprocessed Enron email data.
+The framework for the estimated code is based on [@hoffmanLDA2010].
+The LDA algorithm is formulated considering data is streamed, 
+runs in constant memory and is distributed.
+The algorithm is streamed refers to training documents may come in sequentially,
+and no random access is required.
+The algorithm will run in constant memory with respect to the number of documents,
+where the size of the training corpus does not affect the memory footprint.
+Finally, if available, the algorithm can be distributed across a cluster of
+machines.
+
+For a faster implementation of LDA that is parallelized for multicore machines,
+`gensim.models.ldamulticore` is implemented.
+
+Each email from the database processes and saves information into a pandas 
+DataFrame.
+Within the DataFrame, the email body text can be accessed for each email and
+all email texts are stored within a column.
+To train an LDA model, a corpus must be created from a list of texts or the
+body text from all emails in the Enron Corpus.
+The corpus is formed with email body text that has been cleaned and 
+pre-processed with a number of actions discussed in previous sections, using
+the data stored in the DataFrame column `"tokens"`.
+
+
+
+
 ## Dynamic Topic Modeling
