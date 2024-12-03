@@ -17,10 +17,24 @@
 ## Overview
 
 For the INTA 6450 Enron Project, this repository will host all the necessary information.
-Any code development should be performed in a Jupyter Notebook.
+Any code development can be performed in a Jupyter Notebook or in a Python file, `src/file.py`.
+
+__Enron Project Significant Files__:
+
+- `notebooks/preprocessing.ipynb`: Pre-Processing steps before modeling
+- `notebooks/topic_modeling.ipynb`: Topic model with scikit-learn using `from sklearn.decomposition import LatentDirichletAllocation`
+- `notebooks/topic_modeling_gensim.ipynb`: Topic model using `gensim` and `pyLDAvis` (visualization)
+- `notebooks/topic_modeling_portland.ipynb`: Topic model utilized in ___wrongdoing results___
+- `notebooks/network_analysis.ipynb`: Network analysis modeling
+- `src/data_wrangler.py`: Data parsing and wrangling class of utility functions
+- `src/email_processing.py`: Pre-Processing class of utility functions
+- `src/topic_model.py`: Topic modeling class with scikit-learn
+- `src/utils/db_manager.py`: Database and data management functions
+- `src/utils/log_config.py`: Logging class to log information, warnings, errors in other classes
+
 If the code is finalized, the code should be kept in a Python script in case of any changes or issues that can be identified. For example, you can keep the code in `src/fileName.py`.
 
-Repository Tree:
+General Repository Tree:
 - `data`: Location where the Enron data base is stored after downloading from the [Enron Email Data Base (GT)](https://s3.amazonaws.com/inta.gatech/inta6450-emails.zip) (Data is not uploaded to the repository, ignored)
 - `notebooks`: Any notebooks you worked on with code or markdown notes (`.ipynb` files)
 - `src`: Main code including Python scripts after being developed in notebooks
