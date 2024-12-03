@@ -13,9 +13,11 @@ dependencies:
   - notebook
   - numpy
   - pandas
-  - pip
   - pyldavis
   - scikit-learn
   - scipy<=1.10
   - seaborn
   - sqlite
+  - pip
+  - pip:
+    - nxviz
