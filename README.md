@@ -1,6 +1,20 @@
-# INTA6450 Enron Project
 
-*INTA 6450 - Data Analytics and Security: Enron Project (Fall 2024)*
+
+<h1 align="center">INTA 6450 Enron Project</h1>
+
+<div align="center">
+
+<p align="center">
+ <img height=150px src="./assets/enron.png" alt="Enron-logo">
+</p>
+
+<h4>INTA 6450 - Data Analytics and Security (Fall 2024)</h4>
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+</div>
+
+## Overview
 
 For the INTA 6450 Enron Project, this repository will host all the necessary information.
 Any code development should be performed in a Jupyter Notebook.
@@ -13,13 +27,13 @@ Repository Tree:
 
 *Note: There is LOTS of data, over 250K JSON files*
 
-# Enron Instructions
+## Enron Instructions
 
 In this portion of the project, you will actually implement a strategy to detect wrongdoing. 
 You will start with several distinct proposals, 
 so your group will work to harmonize them and come up with a single approach to implement as a group.
 
-## Data
+### Data
 
 The Enron email dataset was released by FERC as part of their investigations into a number of executives. 
 A dated description of the dataset is available here: [https://en.wikipedia.org/wiki/Enron_Corpus](https://en.wikipedia.org/wiki/Enron_Corpus)
@@ -32,11 +46,11 @@ From the [data access page](https://gatech.instructure.com/courses/402332/pages/
 The Enron Corpus has been provided by the course instructor in a zipped file
 at [Enron Email Data Base (GT)](https://s3.amazonaws.com/inta.gatech/inta6450-emails.zip).
 
-## Goal
+### Goal
 
 The goal of the project is to implement some kind of approach to filter through emails to identify the ones that are associated with your specific form of wrongdoing. You may choose to use methods from the course if you like but you do not need to. The most important part of a good project is that you have a clear type of wrongdoing laid out and that you can show that your methods do as good a job as possible at leading to emails that show your type of wrongdoing. The result of this project should be your identified emails that match your pattern and constitute evidence of your defined wrongdoing. You will be assessed on your ability to implement your project as well as how well your approach is appropriate for your definition of wrongdoing. 
 
-## Process
+### Process
 
 1. You will be placed in a small group of four.  You may form your own groups if you like, but we will send out a survey early in the class to help make sure groups have people of different academic backgrounds but similar timezones.
 
@@ -56,7 +70,7 @@ The goal of the project is to implement some kind of approach to filter through 
 
 6. Assign one member of your group to submit the assignment to the appropriate section in Canvas.
 
-## Rubric
+### Rubric
 
 | Criteria | Excellent (7.5 pts) | Good<br>  (3.75 pts) | Average (2.5 pts) | Below Avg.<br> (0 pts) | Pts |
 |----------|-------------------|----------------|-----------------|-------------------|-----|
@@ -66,11 +80,11 @@ The goal of the project is to implement some kind of approach to filter through 
 | Sequencing of Information | Information is organized in a clear, logical way. | Most information is organized in a clear, logical way. | Some information is logically sequenced. | There is no clear plan for the organization of information. | 7.5 |
 | | | | | **Total Points:** | 30 |
 
-# Installation
+## Installation
 
 This section is a brief discussion if you need help with any installation or setup.
 
-## Environment 
+### Environment 
 
 The first requirement is Python, which is recommended to be
 installed with a virtual environment. For this example, the preferred Python installation will be through a Conda environment.
