@@ -31,6 +31,8 @@ __Enron Project Significant Files__:
 - `src/topic_model.py`: Topic modeling class with scikit-learn
 - `src/utils/db_manager.py`: Database and data management functions
 - `src/utils/log_config.py`: Logging class to log information, warnings, errors in other classes
+- _OTHER_:
+   - `data/models/lda_visualization.html`: LDA topic model plots and visualization presented in report/presentation
 
 If the code is finalized, the code should be kept in a Python script in case of any changes or issues that can be identified. For example, you can keep the code in `src/fileName.py`.
 
